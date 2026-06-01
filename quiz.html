@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Jogo do Amor ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffb3c6 100%);
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(169, 5, 51, 0.15);
+            margin: 40px 0;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 182, 193, 0.5);
+            text-align: center;
+        }
+
+        .btn-voltar {
+            display: block;
+            text-decoration: none;
+            color: #c9184a;
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            text-align: left;
+            transition: transform 0.2s;
+        }
+
+        .btn-voltar:hover {
+            transform: translateX(-3px);
+        }
+
+        .quiz-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #c9184a;
+            margin: 0 0 10px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ffe5ec;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 10%;
+            background: linear-gradient(90deg, #ff758f, #c9184a);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .question-box h2 {
+            font-size: 1.2rem;
+            color: #a11d33;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #ffb3c6;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            color: #4a4a4a;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .option-btn:hover {
+            background: #fff0f3;
+            border-color: #ff4d6d;
+            transform: translateY(-2px);
+        }
+
+        /* Telas de resultado */
+        .result-screen {
+            display: none;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #c9184a;
+            margin: 20px 0;
+        }
+
+        .result-msg {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #ff758f 0%, #c9184a 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
+        
+        <!-- TELA DO JOGO -->
+        <div id="quiz-screen">
+            <div class="quiz-title">Nosso Jogo do Amor</div>
+            <div class="progress-bar">
+                <div class="progress" id="quiz-progress"></div>
+            </div>
+            
+            <div class="question-box">
+                <h2 id="question-text">Carregando pergunta...</h2>
+                <div class="options-container" id="options-box">
+                    <!-- As alternativas vão aparecer aqui dinamicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA DE RESULTADO (Invisível no início) -->
+        <div id="result-screen" class="result-screen">
+            <div class="quiz-title">Fim do Jogo!</div>
+            <div class="score-number" id="score-text">0/10</div>
+            <div class="result-msg" id="message-text"></div>
+            <button class="restart-btn" onclick="reiniciarQuiz()">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                q: "Quem foi a 'ponte amiga' responsável por cruzar os nossos caminhos na transição de 2023 para 2024?",
+                options: [
+                    "Um conhecido do Zoobotânico",
+                    "Roberto Carlos",
+                    "José Lira",
+                    "O cara com quem ela conversou depois"
+                ],
+                correct: 2
+            },
+            {
+                q: "O que impediu que eu reconhecesse o seu rosto por completo no nosso primeiríssimo encontro à tarde?",
+                options: [
+                    "O vaivém constante das pessoas ao nosso redor",
+                    "Uma máscara macia que cobria e escondia o seu rosto",
+                    "A sutil timidez que nos fez desviar o olhar na hora",
+                    "O vento forte que acabou atrapalhando aquele momento"
+                ],
+                correct: 1
+            },
+            {
+                q: "Quais foram os primeiros detalhes físicos seus que se destacaram no silêncio daquela tarde morna e ficaram guardados na minha memória?",
+                options: [
+                    "O brilho dos seus olhos e a doçura do seu sorriso tímido",
+                    "Seus olhos castanhos profundos e os cachos perfeitos do seu cabelo",
+                    "A sua postura serena e o formato das suas mãos",
+                    "Seus olhos marcantes e o jeito como você arrumava o cabelo"
+                ],
+                correct: 1
+            },
+            {
+                q: "Qual foi a justificativa inicial que você usou ao pedir o meu WhatsApp para que começássemos a conversar noites adentro?",
+                options: [
+                    "Uma desculpa bonita de receber ajuda mútua no dia a dia quando o Lira não pudesse",
+                    "O pretexto de me enviar a melodia de uma música que havíamos comentado",
+                    "Dizer que precisava desabafar sobre as situações difíceis que estava passando",
+                    "Chamar para organizar uma surpresa no dia do meu aniversário que estava perto"
+                ],
+                correct: 0
+            },
+            {
+                q: "Olhando para trás, o que causou as discussões, o vai e vem constante e a consequente ruína da nossa estrutura em 2024?",
+                options: [
+                    "A falta de sentimentos reais e de declarações de amor sinceras",
+                    "O afastamento natural provocado por outras pessoas que cruzaram nossos caminhos",
+                    "A falta de maturidade para lidar com o afeto que estávamos tentando construir",
+                    "A ausência de conversas diárias e ligações longas durante a semana"
+                ],
+                correct: 2
+            },
+            {
+                q: "Em 2025, no momento em que meu coração despertou e decidi que queria casar e construir uma família com você, em qual situação você se encontrava?",
+                options: [
+                    "Afastada de tudo, já namorando firme com outro cara",
+                    "Na soleira de uma porta definitiva: a decisão de me esquecer por completo",
+                    "Hesitando em me procurar por medo de novos desentendimentos e brigas",
+                    "Esperando que eu tomasse uma atitude após as suas últimas declarações de amor"
+                ],
+                correct: 1
+            },
+            {
+                q: "Onde exatamente aconteceu o nosso reencontro inesquecível, que marcou o auge da nossa história sendo reescrita?",
+                options: [
+                    "No meio da comemoração de ano novo, na transição de ciclos",
+                    "Sob a sombra generosa das árvores do Zoobotânico",
+                    "No mesmo lugar onde o José Lira tinha nos apresentado",
+                    "Em um banco de praça tranquilo, cercados pela natureza"
+                ],
+                correct: 1
+            },
+            {
+                q: "Qual detalhe tornou o momento do nosso primeiro beijo, no dia 02 de Agosto, ainda mais marcante e inesquecível?",
+                options: [
+                    "O fato de ser o último dia daquele ano tão turbulento",
+                    "A surpresa de aniversário embalada pelo romantismo clássico de uma música do Roberto Carlos",
+                    "A promessa silenciosa feita ao vento de que seríamos 100% recíprocos dali em diante",
+                    "O pedido oficial de namoro que fiz logo após o beijo acontecer"
+                ],
+                correct: 1
+            },
+            {
+                q: "O que passou a ser o nosso maior segredo para garantir que o sol nunca se ponha sem que haja entendimento entre nós?",
+                options: [
+                    "Evitar tocar em assuntos antigos do ano de 2024 para não gerar discussões",
+                    "O senso de sempre sentar, conversar e resolver o problema, deixando o orgulho de lado",
+                    "Ignorar os pequenos erros humanos e focar apenas nos nossos planos futuros",
+                    "Esperar o final de semana chegar para conversar pessoalmente com mais calma"
+                ],
+                correct: 1
+            },
+            {
+                q: "O que transformou a nossa noite de 31 de Dezembro em um marco definitivo para o começo de tudo o que ainda virá?",
+                options: [
+                    "A decisão firme de recomeçar do zero, esquecendo completamente as outras pessoas do passado",
+                    "A certeza recíproca celebrada enquanto assistíamos aos fogos com o José Lira",
+                    "O momento em que segurei a sua mão e te pedi oficialmente em namoro, e você aceitou",
+                    "A nossa primeira ligação longa em que transformamos sonhos antigos em metas de papel"
+                ],
+                correct: 2
+            }
+        ];
+
+        let indiceAtual = 0;
+        let acertos = 0;
+
+        function carregarPergunta() {
+            if (indiceAtual >= perguntas.length) {
+                mostrarResultado();
+                return;
+            }
+
+            // Atualiza barra de progresso
+            const progressoPorcentagem = ((indiceAtual + 1) / perguntas.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressoPorcentagem}%`;
+
+            const itemAparecendo = perguntas[indiceAtual];
+            document.getElementById('question-text').innerText = itemAparecendo.q;
+
+            const caixaOpcoes = document.getElementById('options-box');
+            caixaOpcoes.innerHTML = '';
+
+            itemAparecendo.options.forEach((opcao, index) => {
+                const botao = document.createElement('button');
+                botao.className = 'option-btn';
+                botao.innerText = opcao;
+                botao.onclick = () => verificarResposta(index);
+                caixaOpcoes.appendChild(botao);
+            });
+        }
+
+        function verificarResposta(opcaoSelecionada) {
+            if (opcaoSelecionada === perguntas[indiceAtual].correct) {
+                acertos++;
+            }
+            indiceAtual++;
+            carregarPergunta();
+        }
+
+        function mostrarResultado() {
+            document.getElementById('quiz-screen').style.display = 'none';
+            const telaResultado = document.getElementById('result-screen');
+            telaResultado.style.display = 'block';
+
+            document.getElementById('score-text').innerText = `${acertos} / ${perguntas.length}`;
+
+            let mensagem = "";
+            if (acertos === 10) {
+                mensagem = "Perfeito, meu amor! Você lembrou de cada mínimo detalhe da nossa jornada. Desde o intermediário José Lira até a música do Roberto Carlos no Zoobotânico. Isso só me prova o quanto a nossa história, com todos os seus recomeços, é valiosa para você assim como é para mim. Eu te amo infinitamente!";
+            } else if (acertos >= 7) {
+                mensagem = "Você foi muito bem! Lembra de quase tudo o que passamos e das nossas decisões importantes. O nosso amor amadureceu e hoje o nosso diálogo é o nosso maior alicerce. Que tal ler a nossa história de novo para relembrar os detalhes que faltaram? ❤️";
+            } else {
+                mensagem = "Opa! Parece que alguns detalhes da nossa trajetória confusa de 2024 e o recomeço em 2025 acabaram se misturando na memória. Mas o que importa de verdade é o que estamos construindo hoje, dia após dia, com a benção de Deus. Te amo!";
+            }
+
+            document.getElementById('message-text').innerText = mensagem;
+        }
+
+        function reiniciarQuiz() {
+            indiceAtual = 0;
+            acertos = 0;
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            carregarPergunta();
+        }
+
+        // Inicializa o jogo ao carregar a página
+        carregarPergunta();
+    </script>
+</body>
+</html>
