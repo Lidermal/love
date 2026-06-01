@@ -92,6 +92,11 @@
             border-radius: 5px;
         }
 
+        /* AJUSTE ESPECÍFICO PARA A PRIMEIRA FOTO NÃO CORTAR O ROSTO */
+        .photo-card img.foto-topo {
+            object-position: top center;
+        }
+
         .photo-caption {
             text-align: center;
             font-family: 'Dancing Script', cursive;
@@ -205,6 +210,7 @@
             margin: 20px 0 30px 0;
             color: #a11d33;
             font-weight: 500;
+            text-align: center;
         }
     </style>
 </head>
@@ -218,7 +224,8 @@
         
         <div class="photos-container">
             <div class="photo-card">
-                <img src="img/beijo.png" alt="Foto Primeiro Beijo">
+                <!-- Adicionada a classe foto-topo para corrigir o corte do rosto -->
+                <img src="img/beijo.png" class="foto-topo" alt="Foto Primeiro Beijo">
                 <div class="photo-caption">O começo de tudo...</div>
             </div>
             <div class="photo-card">
@@ -259,13 +266,14 @@
                 </div>
             </a>
 
-            <div class="card-button" style="opacity: 0.85;" onclick="alert('Em breve! Envie as perguntas para liberar esta seção.')">
+            <!-- CARD DO QUIZ LIBERADO E APONTANDO PARA A PÁGINA quiz.html -->
+            <a href="quiz.html" class="card-button">
                 <div class="card-icon">🧩</div>
                 <div class="card-info">
                     <div class="card-title">Nosso Jogo do Amor</div>
-                    <div class="card-desc">Um pequeno quiz interativo sobre nós dois. Será que você lembra de tudo? (Bloqueado)</div>
+                    <div class="card-desc">Um pequeno quiz interativo sobre nós dois. Será que você lembra de tudo?</div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
@@ -306,7 +314,7 @@
             let segundos = dataFim.getSeconds() - dataInicio.getSeconds();
 
             if (segundos < 0) { segundos += 60; minutos--; }
-            if (minutos < 0) { minutos += 60; horas--; }
+            if (minutos < 0) { minutes += 60; horas--; }
             if (horas < 0) { horas += 24; }
 
             document.getElementById(`${prefixo}-anos`).innerText = anos.toString().padStart(2, '0');
