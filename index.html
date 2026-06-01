@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* Fundo suave com degradê sutil e padrão sutil de rosas/elementos românticos via CSS */
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffb3c6 100%);
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Detalhes de rosas flutuantes ou decorativas nas bordas usando emojis de forma elegante */
+        body::before {
+            content: "🌹 ✨ 🌹";
+            position: absolute;
+            top: 10px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        header {
+            text-align: center;
+            margin: 40px 20px 20px 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.8rem;
+            color: #c9184a;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(169, 5, 51, 0.15);
+            margin-bottom: 50px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 182, 193, 0.5);
+        }
+
+        .photos-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+            max-width: 240px;
+            width: 100%;
+        }
+
+        .photo-card:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(0deg);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .photo-caption {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            margin-top: 10px;
+            color: #c9184a;
+        }
+
+        .counter-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .counter-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #a11d33;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .timer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 550px;
+            margin: 0 auto 35px auto;
+        }
+
+        .time-box {
+            background: #ffffff;
+            padding: 12px 5px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #ffb3c6;
+        }
+
+        .time-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #c9184a;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* SEÇÃO DOS BOTÕES MENU CARD */
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 500px;
+            margin: 40px auto 10px auto;
+        }
+
+        .card-button {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe5ec 100%);
+            border: 2px solid #ffb3c6;
+            border-radius: 15px;
+            padding: 20px;
+            text-decoration: none;
+            color: #4a4a4a;
+            box-shadow: 0 6px 15px rgba(201, 24, 74, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(201, 24, 74, 0.2);
+            border-color: #ff4d6d;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+        }
+
+        .card-info {
+            text-align: left;
+        }
+
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #c9184a;
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin: 20px 0 30px 0;
+            color: #a11d33;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Para o Meu Amor</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="photos-container">
+            <div class="photo-card">
+                <img src="https://via.placeholder.com/250x250?text=Nosso+Primeiro+Beijo" alt="Foto Primeiro Beijo">
+                <div class="photo-caption">O começo de tudo...</div>
+            </div>
+            <div class="photo-card">
+                <img src="https://via.placeholder.com/250x250?text=Nosso+Namoro" alt="Foto Oficial">
+                <div class="photo-caption">Meu lugar favorito!</div>
+            </div>
+        </div>
+
+        <div class="counter-section">
+            <div class="counter-title">🌹 Nosso Primeiro Beijo (02/08/2025) 🌹</div>
+            <div class="timer" id="beijo-timer">
+                <div class="time-box"><div class="time-number" id="beijo-anos">00</div><div class="time-label">Anos</div></div>
+                <div class="time-box"><div class="time-number" id="beijo-meses">00</div><div class="time-label">Meses</div></div>
+                <div class="time-box"><div class="time-number" id="beijo-dias">00</div><div class="time-label">Dias</div></div>
+                <div class="time-box"><div class="time-number" id="beijo-horas">00</div><div class="time-label">Horas</div></div>
+                <div class="time-box"><div class="time-number" id="beijo-minutos">00</div><div class="time-label">Minutos</div></div>
+                <div class="time-box"><div class="time-number" id="beijo-segundos">00</div><div class="time-label">Segundos</div></div>
+            </div>
+
+            <div class="counter-title">💍 Nosso Namoro Oficial (31/12/2025) 💍</div>
+            <div class="timer" id="namoro-timer">
+                <div class="time-box"><div class="time-number" id="namoro-anos">00</div><div class="time-label">Anos</div></div>
+                <div class="time-box"><div class="time-number" id="namoro-meses">00</div><div class="time-label">Meses</div></div>
+                <div class="time-box"><div class="time-number" id="namoro-dias">00</div><div class="time-label">Dias</div></div>
+                <div class="time-box"><div class="time-number" id="namoro-horas">00</div><div class="time-label">Horas</div></div>
+                <div class="time-box"><div class="time-number" id="namoro-minutos">00</div><div class="time-label">Minutos</div></div>
+                <div class="time-box"><div class="time-number" id="namoro-segundos">00</div><div class="time-label">Segundos</div></div>
+            </div>
+        </div>
+
+        <div class="menu-buttons">
+            
+            <a href="historia.html" class="card-button">
+                <div class="card-icon">📖</div>
+                <div class="card-info">
+                    <div class="card-title">O Recomeço das Estrelas</div>
+                    <div class="card-desc">Clique para ler a história linda e emocionante que eu escrevi especialmente para nós dois.</div>
+                </div>
+            </a>
+
+            <div class="card-button" style="opacity: 0.85;" onclick="alert('Em breve! Envie as perguntas para liberar esta seção.')">
+                <div class="card-icon">🧩</div>
+                <div class="card-info">
+                    <div class="card-title">Nosso Jogo do Amor</div>
+                    <div class="card-desc">Um pequeno quiz interativo sobre nós dois. Será que você lembra de tudo? (Bloqueado)</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>Feito com todo o amor do mundo ❤️</footer>
+
+    <script>
+        const dataBeijo = new Date(2025, 7, 2, 0, 0, 0); 
+        const dataNamoro = new Date(2025, 11, 31, 0, 0, 0);
+
+        function atualizarContadores() {
+            const agora = new Date();
+            calcularCalendario(dataBeijo, agora, 'beijo');
+            calcularCalendario(dataNamoro, agora, 'namoro');
+        }
+
+        function calcularCalendario(dataInicio, dataFim, prefixo) {
+            if (dataFim < dataInicio) return;
+
+            let anos = dataFim.getFullYear() - dataInicio.getFullYear();
+            let meses = dataFim.getMonth() - dataInicio.getMonth();
+            let dias = dataFim.getDate() - dataInicio.getDate();
+
+            if (dias < 0) {
+                meses--;
+                const dataMesAnterior = new Date(dataFim.getFullYear(), dataFim.getMonth(), 0);
+                dias += dataMesAnterior.getDate();
+            }
+
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+
+            let horas = dataFim.getHours() - dataInicio.getHours();
+            let minutos = dataFim.getMinutes() - dataInicio.getMinutes();
+            let segundos = dataFim.getSeconds() - dataInicio.getSeconds();
+
+            if (segundos < 0) { segundos += 60; minutos--; }
+            if (minutos < 0) { minutos += 60; horas--; }
+            if (horas < 0) { horas += 24; }
+
+            document.getElementById(`${prefixo}-anos`).innerText = anos.toString().padStart(2, '0');
+            document.getElementById(`${prefixo}-meses`).innerText = meses.toString().padStart(2, '0');
+            document.getElementById(`${prefixo}-dias`).innerText = dias.toString().padStart(2, '0');
+            document.getElementById(`${prefixo}-horas`).innerText = horas.toString().padStart(2, '0');
+            document.getElementById(`${prefixo}-minutos`).innerText = minutos.toString().padStart(2, '0');
+            document.getElementById(`${prefixo}-segundos`).innerText = segundos.toString().padStart(2, '0');
+        }
+
+        setInterval(atualizarContadores, 1000);
+        atualizarContadores();
+    </script>
+</body>
+</html>
