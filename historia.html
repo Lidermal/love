@@ -20,6 +20,72 @@
             min-height: 100vh;
         }
 
+        /* CARD DE ALERTA / CONVITE INICIAL */
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 229, 236, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        .alert-card {
+            background: white;
+            max-width: 450px;
+            width: 85%;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(169, 5, 51, 0.2);
+            border: 2px solid #ffb3c6;
+            text-align: center;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .alert-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .alert-message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .alert-btn {
+            background: linear-gradient(135deg, #ff758f 0%, #c9184a 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .alert-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* CONTAINER PRINCIPAL DA HISTÓRIA */
         .container {
             max-width: 750px;
             width: 90%;
@@ -31,6 +97,14 @@
             margin: 40px 0;
             box-sizing: border-box;
             border: 1px solid rgba(255, 182, 193, 0.5);
+            opacity: 0; /* Começa invisível e revela com o JS */
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .container.reveal {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .btn-voltar {
@@ -94,7 +168,19 @@
 </head>
 <body>
 
-    <div class="container">
+    <!-- CARD DE ALERTA INICIAL -->
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-card">
+            <div class="alert-icon">❤️</div>
+            <div class="alert-message">
+                Demorou, mas eu fiz a historinha que você me pediu, meu amor. ❤️ <br><br><strong>Posso ler para você? 🥹</strong>
+            </div>
+            <button class="alert-btn" onclick="revelarHistoria()">Sim, por favor! ✨</button>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO DA HISTÓRIA -->
+    <div class="container" id="storyContainer">
         <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
         
         <div class="story-title">O Recomeço das Estrelas</div>
@@ -103,7 +189,7 @@
         <div class="story-part-title">Parte I: O Encontro e o Vento Forte</div>
         <div class="story-text">Era uma vez, na transição sutil entre o ano de 2023 e o de 2024, um caminho que se cruzou no silêncio de uma tarde morna. No meio do vaivém do mundo, o destino usou uma ponte amiga para aproximar duas almas que ainda não sabiam o quanto se transformariam.
 
-        Naquele primeiro instante, o rosto dela era um mistério escondido por uma máscara macia. Mas os olhos... ah, os olhos não podiam se ocultar. Eram de um castanho profundo, sereno como a terra molhada pela chuva, emoldurados por fios de cabelo que subiam e desciam em cachos perfeitos, como pequenas ondas em um mar tranquilo. Aquele olhar e aqueles cachos ficaram guardados na memória, como uma melodia suave que a gente ouve uma vez e não esquece mais.
+        Naquele primeiro instante, o rosto dela era um mystery escondido por uma máscara macia. Mas os olhos... ah, os olhos não podiam se ocultar. Eram de um castanho profundo, sereno como a terra molhada pela chuva, emoldurados por fios de cabelo que subiam e desciam em cachos perfeitos, como pequenas ondas em um mar tranquilo. Aquele olhar e aqueles cachos ficaram guardados na memória, como uma melodia suave que a gente ouve uma vez e não esquece mais.
 
         Não demorou para que os dias fizessem o seu papel. Veio um pedido de conversa, uma desculpa bonita de ajuda mútua para o dia a dia, e logo as palavras começaram a fluir como um riacho manso. Noites adentro, as mensagens viravam madrugadas, e um sentimento novo, quentinho, começou a brotar no peito de cada um.
 
@@ -111,7 +197,7 @@
 
         Ao longo daquele ano, o vento soprou forte. Vieram as nuvens cinzentas dos desentendimentos, as discussões e as situações difíceis que faziam o coração hesitar. Era um vai e vem constante, como a maré que bate na praia e recua, aproximando e afastando até cansar. Faltava à juventude daquele afeto a calmaria da maturidade. Sem essa base, a estrutura que tentavam erguer acabou desabando, e os caminhos decidiram seguir direções opostas por um tempo. Cada um tentou seguir sua vida, outras pessoas cruzaram suas jornadas, mas nenhum outro abraço parecia encaixar.</div>
 
-        <div class="story-part-title">Parte II: A Escolha e o Canto dos Pássaros</div>
+        <div class="story-part-title">Parte II: A Escolha e O Canto dos Pássaros</div>
         <div class="story-text">O tempo passou, deixando o barulho da tempestade para trás. Chegou o ano de 2025, trazendo consigo o peso dos momentos definitivos. Ela estava ali, na soleira de uma porta importante: a decisão de esquecer o passado por completo, de seguir em frente e fechar aquele livro para sempre, mesmo depois de tantas declarações e de tanto amor demonstrado.
 
         Foi nesse momento de silêncio que o coração dele despertou por completo. Ele olhou para o horizonte, refletiu com a calma que só o tempo dá, analisou cada detalhe e tomou a decisão mais bonita e firme de sua vida: "É ela. É ela que eu quero para mim, para caminhar lado a lado, construir um lar, casar e ver uma família florescer."
@@ -123,7 +209,7 @@
         <div class="story-part-title">Parte III: O Alicerce e o Infinito</div>
         <div class="story-text">Depois daquele dia de sol no parque, a vida ganhou um ritmo novo e bonito. A distância diminuiu e a proximidade se intensificou. Os finais de semana passaram a ter o gosto da espera que vale a pena, e os dias de semana eram preenchidos por ligações longas e conversas diárias que mantinham os corações conectados.
 
-        Até que o último dia daquele ano chegou. No dia trinta e um de dezembro, enquanto o mundo se preparava para estourar fogos e celebrar o recomeço, ele segurou a mano do amor de sua vida. Com o coração batendo forte, mas cheio de certeza, pediu que ela fosse sua namorada. E com o mesmo brilho nos olhos castanhos daquele primeiro dia, ela aceitou.
+        Até que o último dia daquele ano chegou. No dia trinta e um de dezembro, enquanto o mundo se preparava para estourar fogos e celebrar o recomeço, ele segurou a mão do amor de sua vida. Com o coração batendo forte, mas cheio de certeza, pediu que ela fosse sua namorada. E com o mesmo brilho nos olhos castanhos daquele primeiro dia, ela aceitou.
 
         Desde então, os dias têm corrido mansos como as águas de um rio que encontrou o seu leito. O tempo voou, e o primeiro ano daquele beijo no parque e do início do namoro já desenha seus contornos no horizonte. Eles aprenderam que amar também é aprender a ouvir. Passaram por conversas difíceis e compreenderam que errar faz parte da caminhada humana. Mas o maior segredo deles passou a ser o diálogo: sentar, conversar e resolver. O orgulho deu lugar à empatia, de modo que as brigas longas desapareceram; hoje, o sol nunca se põe sem que o entendimento e a ajuda mútua reinem entre os dois.
 
@@ -134,5 +220,18 @@
         <div class="final-note">Durma bem e que esses pensamentos tragam um descanso tranquilo!</div>
     </div>
 
+    <script>
+        function revelarHistoria() {
+            // Esconde o card de alerta suavizado
+            const overlay = document.getElementById('alertOverlay');
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                overlay.style.visibility = 'hidden';
+                // Revela a caixa de texto da história lindamente
+                document.getElementById('storyContainer').classList.add('reveal');
+            }, 500);
+        }
+    </script>
 </body>
 </html>
